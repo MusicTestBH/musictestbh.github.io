@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音乐人格MBTI测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf5 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 32px;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            color: #5a51e6;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #444;
+            margin-bottom: 20px;
+            font-weight: 600;
+            padding-left: 4px;
+            border-left: 4px solid #5a51e6;
+        }
+
+        .question {
+            margin-bottom: 22px;
+        }
+
+        .q-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 14px 18px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 15px;
+            color: #555;
+            background: #fafbfc;
+        }
+
+        .option:hover {
+            border-color: #c4c1ff;
+            background: #f7f7ff;
+        }
+
+        .option.active {
+            background: #5a51e6;
+            color: #fff;
+            border-color: #5a51e6;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-prev {
+            background: #f1f3f9;
+            color: #555;
+        }
+
+        .btn-next {
+            background: #5a51e6;
+            color: white;
+        }
+
+        .btn-prev:hover {
+            background: #e4e7f0;
+        }
+
+        .btn-next:hover {
+            background: #4c44d6;
+        }
+
+        .result {
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        .result h2 {
+            font-size: 22px;
+            color: #5a51e6;
+            margin-bottom: 16px;
+        }
+
+        .result-code {
+            font-size: 48px;
+            font-weight: 900;
+            color: #5a51e6;
+            margin: 20px 0;
+        }
+
+        .result-desc {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.8;
+            text-align: left;
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 10px;
+        }
+
+        .result-desc b {
+            color: #5a51e6;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🎵 音乐人格MBTI测试</h1>
+        <p>请根据第一直觉选择最符合你的听歌习惯，完成即可获得专属人格</p>
+    </div>
+
+    <!-- 第1页 -->
+    <div class="page active" id="page1">
+        <div class="section-title">第一部分：听歌习惯（F vs E）</div>
+        <div class="question">
+            <div class="q-title">Q1. 周末宅家，你打开音乐软件的第一反应是？</div>
+            <div class="options">
+                <div class="option" data-ans="A">A. 点开“我喜欢的音乐”或收藏的歌单，听那些让我放松的老歌</div>
+                <div class="option" data-ans="B">B. 点开“每日推荐”或“新歌榜”，看看最近有什么新鲜货</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="q-title">Q2. 当你在做重复性工作（通勤、打扫）时，你更倾向于？</div>
+            <div class="options">
+                <div class="option" data-ans="A">A. 播放熟悉的专辑，让熟悉的旋律作为背景音</div>
+                <div class="option" data-ans="B">B. 随机播放或探索新风格，防止耳朵起茧</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="q-title">Q3. 对于你喜欢的歌手发新歌，你的心态是？</div>
+            <div class="options">
+                <div class="option" data-ans="A">A. 期待已久，反复细品歌词和编曲细节</div>
+                <div class="option" data-ans="B">B. 听听看，如果不好听就切歌，不迷信歌手光环</div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-prev" disabled>上一页</button>
+            <button class="btn btn-next" onclick="nextPage()">下一页</button>
+        </div>
+    </div>
+
+    <!-- 第2页 -->
+    <div class="page" id="page2">
+        <div class="section-title">第二部分：时间偏好（T vs N）</div>
+        <div class="question">
+            <div class="q-title">Q4. 你的播放器里，歌曲的发行年份主要集中在？</div>
+            <div class="options">
+                <div class="option" data-ans="A">A. 发行超过5年甚至10年以上的经典老歌</div>
+                <div class="option" data-ans="B">B. 近1-2年发布的流行新歌或最新单曲</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="q-title">Q5. 听到一首翻唱歌曲时，你更喜欢哪种版本？</div>
+            <div class="options">
+                <div class="option" data-ans="A">A. 尊重原版的经典编曲，保留原汁原味</div>
+                <div class="option" data-ans="B">B. 颠覆性的改编，加入现代元素或全新风格</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="q-title">Q6. 你认为什么样的音乐才是“好音乐”？</div>
+            <div class="options">
+                <div class="option" data-ans="A">A. 经得起时间考验，哪怕过了几十年听依然动人</div>
+                <div class="option" data-ans="B">B. 具有先锋性和时代感，代表当下的潮流</div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-prev" onclick="prevPage()">上一页</button>
+            <button class="btn btn-next" onclick="nextPage()">下一页</button>
+        </div>
+    </div>
+
+    <!-- 第3页 -->
+    <div class="page" id="page3">
+        <div class="section-title">第三部分：歌单风格（L vs V）</div>
+        <div class="question">
+            <div class="q-title">Q7. 描述一下你的私人歌单，最贴切的是？</div>
+            <div class="options">
+                <div class="option" data-ans="A">A. 风格统一，比如专门的“周杰伦”或“后摇”歌单</div>
+                <div class="option" data-ans="B">B. 风格大乱炖，从古典、说唱到二次元什么都有</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="q-title">Q8. 当你发现一位特别喜欢的宝藏歌手时，你会？</div>
+            <div class="options">
+                <div class="option" data-ans="A">A. 把他的所有专辑从头听到尾，甚至考古早期作品</div>
+                <div class="option" data-ans="B">B. 只听最抓耳的几首，然后继续寻找下一个宝藏</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="q-title">Q9. 关于“听歌品味”，你更认同哪种说法？</div>
+            <div class="options">
+                <div class="option" data-ans="A">A. 弱水三千只取一瓢，我专情于我喜欢的风格</div>
+                <div class="option" data-ans="B">B. 音乐无边界，我想听遍全世界的各种声音</div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-prev" onclick="prevPage()">上一页</button>
+            <button class="btn btn-next" onclick="nextPage()">下一页</button>
+        </div>
+    </div>
+
+    <!-- 第4页 -->
+    <div class="page" id="page4">
+        <div class="section-title">第四部分：大众与小众（C vs U）</div>
+        <div class="question">
+            <div class="q-title">Q10. 在KTV或聚会时，你的选歌策略是？</div>
+            <div class="options">
+                <div class="option" data-ans="A">A. 点大家都能哼两句的热门金曲，以此带动气氛</div>
+                <div class="option" data-ans="B">B. 点一些冷门但高级的歌，展示独特的品味</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="q-title">Q11. 当你在朋友圈分享一首歌时，你的心理活动是？</div>
+            <div class="options">
+                <div class="option" data-ans="A">A. 这首歌最近很火，不分享就落伍了</div>
+                <div class="option" data-ans="B">B. 这首歌太小众了，希望能被懂的人看到</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="q-title">Q12. 对于抖音/短视频上的“神曲”，你的态度是？</div>
+            <div class="options">
+                <div class="option" data-ans="A">A. 虽然烂大街，但确实上头好听</div>
+                <div class="option" data-ans="B">B. 听到前奏就切歌，拒绝被算法喂养</div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-prev" onclick="prevPage()">上一页</button>
+            <button class="btn btn-next" onclick="calculateResult()">查看结果</button>
+        </div>
+    </div>
+
+    <!-- 结果页 -->
+    <div class="page" id="resultPage">
+        <div class="result">
+            <h2>🎉 你的音乐人格已生成</h2>
+            <div class="result-code" id="resultCode"></div>
+            <div class="result-desc" id="resultDesc"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentPage = 1;
+
+    document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => {
+            const siblings = opt.parentElement.querySelectorAll('.option');
+            siblings.forEach(s => s.classList.remove('active'));
+            opt.classList.add('active');
+        });
+    });
+
+    function nextPage() {
+        if (!checkPageAnswered(currentPage)) {
+            alert('请完成本页所有题目');
+            return;
+        }
+        goToPage(currentPage + 1);
+    }
+
+    function prevPage() {
+        goToPage(currentPage - 1);
+    }
+
+    function goToPage(num) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(`page${num}`).classList.add('active');
+        currentPage = num;
+    }
+
+    function checkPageAnswered(pageNum) {
+        const page = document.getElementById(`page${pageNum}`);
+        const questions = page.querySelectorAll('.question');
+        for (let q of questions) {
+            if (!q.querySelector('.option.active')) return false;
+        }
+        return true;
+    }
+
+    function calculateResult() {
+        if (!checkPageAnswered(4)) {
+            alert('请完成所有题目');
+            return;
+        }
+
+        let g1 = { A: 0, B: 0 }, g2 = { A: 0, B: 0 }, g3 = { A: 0, B: 0 }, g4 = { A: 0, B: 0 };
+
+        document.querySelectorAll('#page1 .option.active').forEach(o => g1[o.dataset.ans]++);
+        document.querySelectorAll('#page2 .option.active').forEach(o => g2[o.dataset.ans]++);
+        document.querySelectorAll('#page3 .option.active').forEach(o => g3[o.dataset.ans]++);
+        document.querySelectorAll('#page4 .option.active').forEach(o => g4[o.dataset.ans]++);
+
+        const FE = g1.A > g1.B ? 'F' : 'E';
+        const TN = g2.A > g2.B ? 'T' : 'N';
+        const LV = g3.A > g3.B ? 'L' : 'V';
+        const CU = g4.A > g4.B ? 'C' : 'U';
+        const code = FE + TN + LV + CU;
+
+        // 结果详细解释
+        let feText = FE === 'F'
+            ? '<b>F（怀旧专注型）</b>：偏爱熟悉的音乐，喜欢沉浸在安全感与回忆里，用心感受旋律与歌词'
+            : '<b>E（探索开放型）</b>：喜欢新鲜感，乐于发现新歌、新风格，不被熟悉感束缚';
+
+        let tnText = TN === 'T'
+            ? '<b>T（经典情怀党）</b>：忠于经典老歌，认为经得起时间考验的才是好音乐，偏爱原汁原味'
+            : '<b>N（潮流先锋派）</b>：紧跟最新流行，喜欢创新改编与现代曲风，追求时代感';
+
+        let lvText = LV === 'L'
+            ? '<b>L（专一深耕者）</b>：风格专一，钟情于特定歌手/流派，愿意深度了解与聆听'
+            : '<b>V（多元包容家）</b>：音乐口味极广，什么风格都听，追求丰富与新鲜感';
+
+        let cuText = CU === 'C'
+            ? '<b>C（大众共鸣者）</b>：喜欢热门流行曲，乐于融入群体，享受共同的音乐氛围'
+            : '<b>U（小众品味家）</b>：追求独特与质感，偏爱冷门歌曲，坚持自己的音乐审美';
+
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('resultPage').classList.add('active');
+        document.getElementById('resultCode').innerText = code;
+        document.getElementById('resultDesc').innerHTML = `
+${feText}<br><br>
+${tnText}<br><br>
+${lvText}<br><br>
+${cuText}<br><br>
+你的完整音乐人格类型：<b>${code}</b>
+        `;
+    }
+</script>
+</body>
+</html>
