@@ -347,6 +347,7 @@
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(`page${num}`).classList.add('active');
         currentPage = num;
+        window.scrollTo(0, 0);
     }
 
     function checkPageAnswered(pageNum) {
@@ -396,6 +397,7 @@
 
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('resultPage').classList.add('active');
+        window.scrollTo(0, 0);
         document.getElementById('resultCode').innerText = code;
         document.getElementById('resultDesc').innerHTML = `
 ${feText}<br><br>
